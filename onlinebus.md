@@ -1,8 +1,7 @@
-![image](https://github.com/gtqbhksl/weekdays_something/assets/113713406/7ff20f87-72ed-43c7-ab55-823e3dfd27a0)search system on github,find an online-bus-and-train-booking-system
-
-![image](https://github.com/gtqbhksl/weekdays_something/assets/113713406/fe68d1e0-ab02-4bde-92d7-e114f8b8323c)
+project rul:
 
 https://github.com/Abhaysharma0519/Online-Bus-and-Train-booking-system
+
 # install
 
 use phpstudy create a website
